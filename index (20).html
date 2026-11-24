@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Осадки · дождь, снег и град</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:'<color>';inherits:true;initial-value:#ffd6e0}
+@property --b{syntax:'<color>';inherits:true;initial-value:#c7e9ff}
+:root{--ink:#2b2d52;--mu:#6b6f98;--pk:#ff7eb6;--bl:#5aa9ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{font:600 clamp(14px,1.12vw,19px)/1.6 Nunito,Arial,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--a),var(--b));transition:--a 1.2s,--b 1.2s;min-height:100vh}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+#pg{position:fixed;top:0;left:0;height:5px;width:0;background:linear-gradient(90deg,var(--pk),var(--bl));z-index:9;border-radius:0 5px 5px 0}
+section{min-height:100vh;display:flex;align-items:center;padding:0 7vw;position:relative;z-index:2;scroll-snap-align:center}
+section.rr{justify-content:flex-end}
+.card{width:min(40vw,580px);padding:4vh 2.2vw;border-radius:40px;background:rgba(255,255,255,.58);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border:2px solid rgba(255,255,255,.85);box-shadow:0 40px 80px -20px rgba(70,70,140,.28);opacity:0;transform:translateY(50px) scale(.97);transition:opacity 1s,transform 1s cubic-bezier(.2,.8,.2,1)}
+.in .card,.in .hero{opacity:1;transform:none}
+.k{font:800 .74em Nunito;letter-spacing:.22em;text-transform:uppercase;color:var(--pk);margin-bottom:.8em}
+h2{font:900 min(3.6vw,6.4vh)/1.05 Nunito;letter-spacing:-.03em;margin-bottom:.5em}
+h2 i,.hero i{font:italic 500 1.05em 'Playfair Display',serif;background:linear-gradient(90deg,var(--pk),var(--bl));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+p{margin-bottom:1em;color:#3c3f6b}
+.pill{display:inline-block;margin:0 .5em .6em 0;padding:.5em 1.1em;border-radius:99px;background:#fff;box-shadow:0 8px 20px -8px rgba(70,70,140,.35);font-weight:800;font-size:.88em}
+.pill b{color:var(--pk)}
+input[type=range]{width:100%;margin:.4em 0 1em;accent-color:#ff7eb6;height:26px}
+.num{font:900 min(4vw,7vh)/1 Nunito;color:var(--ink)}
+.btn{font:800 1em Nunito;border:0;padding:.7em 1.4em;border-radius:99px;color:#fff;background:linear-gradient(90deg,var(--pk),var(--bl));box-shadow:0 12px 24px -10px rgba(90,100,200,.7);cursor:pointer;margin-bottom:1em}
+.hero{opacity:0;transform:translateY(40px);transition:1.2s;max-width:46vw}
+.hero h1{font:900 min(15vw,27vh)/.85 Nunito;letter-spacing:-.06em;margin:.1em 0 .15em}
+.hero p{font-size:1.5em;font-weight:700;max-width:22ch}
+.hint{margin-top:2.4em;font:800 .75em Nunito;letter-spacing:.2em;text-transform:uppercase;color:var(--mu)}
+@media (max-aspect-ratio:1/1){section,section.rr{align-items:flex-end;justify-content:center;padding:0 4vw 5vh}.card{width:100%;padding:3vh 5vw}.hero{max-width:100%}h2{font-size:26px}}
+</style>
+</head>
+<body>
+<div id="pg"></div>
+<canvas id="c"></canvas>
+
+<section style="--a:#ffd6e0;--b:#c7e9ff">
+ <div class="hero"><div class="k">Атмосферные</div><h1><i>Осадки</i></h1><p>Дождь, снег и град: как они рождаются и почему так красивы.</p><div class="hint">Листай вниз ↓</div></div>
+</section>
+
+<section class="rr" style="--a:#c9f0e3;--b:#fdf3c8">
+ <div class="card"><div class="k">Круговорот воды</div><h2>Вода <i>не пропадает</i></h2>
+  <p>Солнце испаряет воду, пар поднимается и остывает на 10 °C с каждым километром. На пылинках он превращается в капли, и рождается облако. Потом вода возвращается дождём и снегом.</p>
+  <span class="pill"><b>505 000</b> км³ воды в год</span><span class="pill"><b>78 %</b> осадков падает в океан</span><span class="pill"><b>9 суток</b> молекула в воздухе</span></div>
+</section>
+
+<section style="--a:#c7e3ff;--b:#e3d4ff">
+ <div class="card"><div class="k">Капля</div><h2>Как растёт <i>капля</i></h2>
+  <div class="num" id="d2">1,0 мм</div><p id="n2" style="margin:.2em 0 .6em;color:var(--pk);font-weight:800">Дождь · 4 м/с</p>
+  <input type="range" id="r2" min="1" max="100" value="45">
+  <p>Облачная капля всего 0,01 мм. Чтобы вышла одна дождевая, их сливается около миллиона. Большая капля сплющивается снизу, как булочка, и вовсе не похожа на слезинку.</p>
+  <span class="pill"><b>9 м/с</b> предел скорости капли</span></div>
+</section>
+
+<section class="rr" style="--a:#d7f0ff;--b:#f4f9ff">
+ <div class="card"><div class="k">Снежинка</div><h2>Шесть лучей <i>и ни одной копии</i></h2>
+  <p>Форма зависит от температуры облака. Гексагон «записан» в молекуле воды. Первым снежинки сфотографировал Уилсон Бентли в 1885 году.</p>
+  <div class="num" id="t3">−15 °C</div><p id="f3" style="margin:.2em 0 .5em;color:var(--pk);font-weight:800">Звёздчатый дендрит</p>
+  <input type="range" id="r3" min="1" max="30" value="15"><button class="btn" id="b3">Новая снежинка</button><br>
+  <span class="pill"><b>≈ 1 м/с</b> скорость падения</span></div>
+</section>
+
+<section style="--a:#e3d4ff;--b:#ffd6e0">
+ <div class="card"><div class="k">Град</div><h2>Градина <i>изнутри</i></h2>
+  <div class="num" id="d4">≈ 24 см</div><p id="p4" style="margin:.2em 0 .5em;color:var(--pk);font-weight:800">Подъёмов в облаке: 4</p>
+  <input type="range" id="r4" min="1" max="10" value="4">
+  <p>Мощные потоки несколько раз поднимают градину вверх. Каждый раз она обрастает слоем: прозрачным или мутным, как луковица.</p>
+  <span class="pill">Рекорд: <b>20,3 см</b>, 0,88 кг</span><span class="pill"><b>150 км/ч</b> у крупной градины</span></div>
+</section>
+
+<section class="rr" style="--a:#ffe8cf;--b:#d4efe4">
+ <div class="card"><div class="k">Горы</div><h2>Дождь и <i>дождевая тень</i></h2>
+  <p>Влажный ветер упирается в гору, поднимается, остывает и проливается на наветренном склоне. На другую сторону идёт уже сухой воздух.</p>
+  <p>Поэтому индийский Черрапунджи получает около 11 000 мм в год, а за хребтом лежат пустыни.</p>
+  <span class="pill"><b>Маусинрам</b> ≈ 11 870 мм</span><span class="pill"><b>Арика</b> ≈ 1 мм</span><span class="pill">Дождя <b>14 лет</b> не было</span></div>
+</section>
+
+<section style="--a:#ffe0f0;--b:#d9e8ff">
+ <div class="card" style="width:min(44vw,640px)"><div class="k">Рекорды</div><h2>После дождя <i>радуга</i></h2>
+  <span class="pill"><b>38 мм</b> за минуту, Гваделупа</span><span class="pill"><b>1825 мм</b> за сутки, Реюньон</span><span class="pill"><b>29 м</b> снега за зиму, США</span>
+  <p style="margin-top:1em">Радуга появляется, когда Солнце светит сквозь дождь: капля раскладывает свет на семь цветов. Её видно, только если Солнце за спиной.</p>
+  <p style="margin:0;color:var(--mu)">1 мм осадков = 1 литр воды на каждом квадратном метре.</p></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},R=function(a,b){return a+Math.random()*(b-a)};
+var secs=[].slice.call(document.querySelectorAll('section')),U=[],G=[],dd=new THREE.Object3D(),act=0,px=0,py=0,i;
+try{
+var r=new THREE.WebGLRenderer({canvas:$('c'),antialias:true,alpha:true});r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));r.localClippingEnabled=true;
+var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,100);
+function rs(){r.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}addEventListener('resize',rs);rs();
+sc.add(new THREE.HemisphereLight(0xffffff,0xbcd0ff,.95));var dl=new THREE.DirectionalLight(0xffffff,.9);dl.position.set(4,8,6);sc.add(dl);var pl=new THREE.PointLight(0xffb3d1,.8,30);pl.position.set(-5,2,4);sc.add(pl);
+for(i=0;i<7;i++){G[i]=new THREE.Group();G[i].scale.setScalar(.001);sc.add(G[i])}
+function M(g,c,x,y,z,p,o){var m=new THREE.Mesh(g,new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.55},o||{})));m.position.set(x||0,y||0,z||0);p.add(m);return m}
+function Sp(q){return new THREE.SphereGeometry(q,32,20)}
+function inst(p,g,c,n,o){var m=new THREE.InstancedMesh(g,new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.3},o||{})),n);p.add(m);return m}
+function cloud(p,x,y,z,k,face){var g=new THREE.Group();g.position.set(x,y,z);p.add(g);[[0,0,0,1.3],[-1.3,-.25,0,.9],[1.3,-.2,0,1],[-.5,.8,0,.9],[.7,.75,0,.8]].forEach(function(a){M(Sp(a[3]*k),0xffffff,a[0]*k,a[1]*k,a[2]*k,g,{roughness:.85})});
+ if(face){M(Sp(.12*k),0x2b2d52,-.5*k,.15*k,1.28*k,g);M(Sp(.12*k),0x2b2d52,.5*k,.15*k,1.28*k,g);M(Sp(.2*k),0xff9ebd,-.85*k,-.15*k,1.15*k,g,{transparent:true,opacity:.7});M(Sp(.2*k),0xff9ebd,.85*k,-.15*k,1.15*k,g,{transparent:true,opacity:.7})}return g}
+var GL={transparent:true,opacity:.85,roughness:.15,metalness:.1};
+/* 0 hero */
+(function(){var g=G[0],c=cloud(g,0,.9,0,1.25,1),n=220,m=inst(g,Sp(.06),0x6cb8ff,n,GL),P=[];for(var k=0;k<n;k++)P.push([R(-2.6,2.6),R(-3.2,0),R(-1,1),R(5,9)]);
+ M(new THREE.CylinderGeometry(3.4,3.4,.14,48),0xbfe3ff,0,-3.3,0,g,{roughness:.2});
+ U[0]=function(t,dt){c.position.y=.9+Math.sin(t*1.4)*.15;for(var k=0;k<n;k++){var p=P[k];p[1]-=dt*p[3];if(p[1]<-3.2)p[1]=R(-.3,0);dd.position.set(p[0],p[1],p[2]);dd.scale.set(1,3.2,1);dd.updateMatrix();m.setMatrixAt(k,dd.matrix)}dd.scale.set(1,1,1);m.instanceMatrix.needsUpdate=true;g.rotation.y=Math.sin(t*.4)*.4}})();
+/* 1 island cycle */
+(function(){var g=G[1];M(new THREE.CylinderGeometry(3.4,3.2,.5,48),0x9be3a4,0,0,0,g);var rk=M(new THREE.ConeGeometry(3.2,2.8,48),0xb9a58a,0,-1.6,0,g);rk.rotation.x=Math.PI;
+ M(new THREE.CylinderGeometry(1.1,1.1,.52,32),0x6cc6ff,-1.4,.01,.9,g,GL);M(new THREE.ConeGeometry(1.5,2.8,7),0xb7a9d9,1.3,1.6,-.4,g);M(new THREE.ConeGeometry(.55,.8,7),0xffffff,1.3,2.8,-.4,g);
+ M(new THREE.ConeGeometry(.35,1,8),0x4cc38a,-.2,.8,-1.5,g);M(new THREE.ConeGeometry(.3,.8,8),0x4cc38a,-.2,1.3,-1.5,g);
+ var sun=M(Sp(.55),0xffe066,-3.4,3.8,-1,g,{emissive:0xffc233,emissiveIntensity:.8});var cl=cloud(g,1.3,4.1,-.4,.6);
+ var ev=inst(g,Sp(.09),0xeaf7ff,60,{transparent:true,opacity:.9}),rn=inst(g,Sp(.06),0x6cb8ff,70,GL),E=[],Q=[],k;for(k=0;k<60;k++)E.push([R(-2.2,-.6),R(0,1),R(.4,1.4)]);for(k=0;k<70;k++)Q.push([R(.4,2.2),R(.5,4),R(-1,.3)]);
+ U[1]=function(t,dt){sun.position.set(-3.4+Math.sin(t*.3)*.4,3.8+Math.cos(t*.3)*.3,-1);for(var k=0;k<60;k++){var e=E[k];e[1]+=dt*.14;if(e[1]>1)e[1]=0;var p=e[1];dd.position.set(e[0]+(1.3-e[0])*p*p,.4+3.7*p,e[2]*(1-p)-.4*p);dd.updateMatrix();ev.setMatrixAt(k,dd.matrix)}
+  for(k=0;k<70;k++){var q=Q[k];q[1]-=dt*3.4;if(q[1]<.5)q[1]=3.9;dd.position.set(q[0],q[1],q[2]);dd.scale.set(1,2.6,1);dd.updateMatrix();rn.setMatrixAt(k,dd.matrix)}dd.scale.set(1,1,1);ev.instanceMatrix.needsUpdate=rn.instanceMatrix.needsUpdate=true;g.rotation.y=t*.18}})();
+/* 2 drop */
+var DR=(function(){var g=G[2],m=new THREE.Group(),tab=[[.01,.003],[.1,.27],[.5,2.1],[1,4],[2,6.5],[3,8.1],[4,8.8],[5,9.1]];g.add(m);M(new THREE.CylinderGeometry(2.6,2.6,.16,48),0xffffff,0,-2.3,0,g,{roughness:.4});
+ function spd(d){for(var k=1;k<tab.length;k++)if(d<=tab[k][0]){var a=tab[k-1],b=tab[k];return a[1]+(b[1]-a[1])*(d-a[0])/(b[0]-a[0])}return 9.1}
+ function build(d){while(m.children.length)m.remove(m.children[0]);var q=.4+d*.32,f=Math.max(0,Math.min(1,(d-1)/3)),pts=[];
+  for(var k=0;k<=44;k++){var ph=Math.PI-k/44*Math.PI,x=q*Math.sin(ph),y=q*Math.cos(ph);if(y<0){y*=1-.42*f;if(f>.8)y+=(f-.8)/.2*q*.3*Math.exp(-Math.pow(x/(q*.4),2))}pts.push(new THREE.Vector2(Math.max(x,.001),y))}
+  M(new THREE.LatheGeometry(pts,56),0x7cc8ff,0,0,0,m,{transparent:true,opacity:.82,roughness:.08,metalness:.15,emissive:0x2b7bd6,emissiveIntensity:.25});
+  var n=d<.2?'Облачная капля':d<.5?'Морось':d<=2?'Дождь':'Крупный дождь',s=spd(d);$('d2').textContent=(d<.1?d.toFixed(2):d.toFixed(1)).replace('.',',')+' мм';$('n2').textContent=n+' · '+(s<.1?(s*100).toFixed(1)+' см/с':s.toFixed(1)+' м/с').replace('.',',')}
+ $('r2').addEventListener('input',function(e){build(.01*Math.pow(500,(e.target.value-1)/99))});build(1);U[2]=function(t){m.rotation.y=t*.7;m.position.y=Math.sin(t*2)*.08}})();
+/* 3 snowflake */
+var F=new THREE.Group(),ice=new THREE.MeshStandardMaterial({color:0xd6f1ff,roughness:.2,metalness:.1,emissive:0x7fc4ff,emissiveIntensity:.3});G[3].add(F);
+function bar(p,x1,y1,x2,y2,w){var L=Math.hypot(x2-x1,y2-y1),b=new THREE.Mesh(new THREE.BoxGeometry(L,w,w*.7),ice);b.position.set((x1+x2)/2,(y1+y2)/2,0);b.rotation.z=Math.atan2(y2-y1,x2-x1);p.add(b)}
+function flake(){var a=+$('r3').value,names='Тонкая пластинка',k;$('t3').textContent='−'+a+' °C';while(F.children.length)F.remove(F.children[0]);
+ if(a<5||a>22){names=a<5?'Шестигранная пластинка':'Пластинка с секторами';var h=new THREE.Mesh(new THREE.CylinderGeometry(2,2,.2,6),ice);h.rotation.x=Math.PI/2;F.add(h);for(k=0;k<6;k++){var A=new THREE.Group();A.rotation.z=k*Math.PI/3;F.add(A);bar(A,.2,0,1.9,0,.12);if(a>22){bar(A,1.2,0,1.6,.5,.08);bar(A,1.2,0,1.6,-.5,.08)}}}
+ else if(a<11){names='Столбики и иглы';var c=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,3.2,6),ice);c.rotation.z=Math.PI/2;F.add(c);[-1.6,1.6].forEach(function(x){var e=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,.14,6),ice);e.rotation.z=Math.PI/2;e.position.x=x;F.add(e)})}
+ else{names='Звёздчатый дендрит';for(k=0;k<6;k++){var B=new THREE.Group();B.rotation.z=k*Math.PI/3;F.add(B);bar(B,0,0,2.8,0,.16);[.8,1.4,2].forEach(function(t,j){var l=(3-t)*.62*(.7+Math.random()*.5);[1,-1].forEach(function(s){var ex=t+l*.5,ey=s*l*.87;bar(B,t,0,ex,ey,.11);if(j<2){var mx=t+l*.25,my=s*l*.43;bar(B,mx,my,mx+l*.45,my,.07)}})})}}
+ $('f3').textContent=names}
+$('r3').addEventListener('input',flake);$('b3').addEventListener('click',flake);flake();
+U[3]=function(t){F.rotation.y=Math.sin(t*.5)*.5;F.rotation.z=t*.12;F.rotation.x=Math.cos(t*.4)*.2};
+/* 4 hail */
+(function(){var g=G[4],pl2=[new THREE.Plane(new THREE.Vector3(-1,0,0),0),new THREE.Plane(new THREE.Vector3(0,-1,0),0)],sp=[],k;
+ for(k=1;k<=10;k++){var m=new THREE.Mesh(new THREE.SphereGeometry(.7+.3*k,48,32),new THREE.MeshStandardMaterial({color:k%2?0xffffff:0xa8dcff,roughness:.35,clippingPlanes:pl2,clipIntersection:true,side:THREE.DoubleSide}));m.userData.i=k;g.add(m);sp.push(m)}
+ function set(n){sp.forEach(function(m){m.visible=m.userData.i<=n});g.userData.s=Math.min(1.1,2.6/(.7+.3*n));$('d4').textContent='≈ '+Math.round((.7+.3*n)*6)+' см';$('p4').textContent='Подъёмов в облаке: '+n}
+ $('r4').addEventListener('input',function(e){set(+e.target.value)});set(4);U[4]=function(t){g.rotation.y=t*.25+.5;g.rotation.x=.25}})();
+/* 5 mountain */
+(function(){var g=G[5];M(new THREE.CylinderGeometry(6,6,.3,64),0xcfe9d6,0,-.15,0,g);M(new THREE.CylinderGeometry(2.9,2.9,.32,48),0xf3dca8,3.3,-.14,0,g);
+ M(new THREE.ConeGeometry(3.2,3.8,48),0xb7a9d9,0,1.9,0,g);M(new THREE.ConeGeometry(.9,1.2,48),0xffffff,0,3.4,0,g);
+ var cl=cloud(g,-1.6,4.4,0,.7),n=160,w=inst(g,Sp(.07),0xffffff,n),W=[],rn=inst(g,Sp(.05),0x4a9bf2,90,GL),Q=[],k,cb=new THREE.Color(0x4a9bf2),cs=new THREE.Color(0xf0c98a),cc=new THREE.Color();
+ for(k=0;k<n;k++)W.push([R(-6,6),R(.3,1.6),R(-.9,.9)]);for(k=0;k<90;k++)Q.push([R(-2.7,-.6),R(.6,4),R(-.7,.7)]);
+ U[5]=function(t,dt){for(var k=0;k<n;k++){var p=W[k];p[0]+=dt*1.5;if(p[0]>6)p[0]=-6;var d=Math.sqrt(p[0]*p[0]+p[2]*p[2]),sf=Math.max(0,3.8*(1-d/3.2)),y=Math.max(p[1],sf+.3);dd.position.set(p[0],y,p[2]);dd.updateMatrix();w.setMatrixAt(k,dd.matrix);cc.copy(p[0]<0?cb:cs);if(p[0]>0&&p[0]<1.5)cc.copy(cb).lerp(cs,p[0]/1.5);w.setColorAt(k,cc)}
+  for(k=0;k<90;k++){var q=Q[k];q[1]-=dt*3.4;var sf=Math.max(0,3.8*(1-Math.abs(q[0])/3.2));if(q[1]<sf+.1)q[1]=4.2;dd.position.set(q[0],q[1],q[2]);dd.scale.set(1,2.4,1);dd.updateMatrix();rn.setMatrixAt(k,dd.matrix)}dd.scale.set(1,1,1);
+  w.instanceMatrix.needsUpdate=true;if(w.instanceColor)w.instanceColor.needsUpdate=true;rn.instanceMatrix.needsUpdate=true;g.rotation.y=Math.sin(t*.3)*.35-.2}})();
+/* 6 rainbow */
+(function(){var g=G[6],cols=[0xff6b8b,0xffa94d,0xffe066,0x8ce99a,0x74c0fc,0x748ffc,0xb197fc];cols.forEach(function(c,k){M(new THREE.TorusGeometry(3.7-k*.25,.12,16,90,Math.PI),c,0,-1.3,0,g,{roughness:.3,emissive:c,emissiveIntensity:.25})});
+ cloud(g,-3.9,-1.3,0,.7,1);cloud(g,3.9,-1.3,0,.7);var n=50,st=inst(g,Sp(.07),0xffffff,n,{emissive:0xffffff,emissiveIntensity:.8}),S=[];for(var k=0;k<n;k++)S.push([R(-4,4),R(-1,3.5),R(-1,1),R(0,6)]);
+ U[6]=function(t){for(var k=0;k<n;k++){var s=S[k];dd.position.set(s[0],s[1]+Math.sin(t+s[3])*.2,s[2]);var z=.6+.6*Math.sin(t*2+s[3]);dd.scale.setScalar(z);dd.updateMatrix();st.setMatrixAt(k,dd.matrix)}dd.scale.setScalar(1);st.instanceMatrix.needsUpdate=true;g.rotation.y=Math.sin(t*.4)*.25}})();
+}catch(e){console.warn('3D off',e);$('c').style.display='none'}
+addEventListener('pointermove',function(e){px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5});
+var wide=function(){return innerWidth>innerHeight};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');var k=secs.indexOf(e.target);act=k;var cs=getComputedStyle(e.target);document.body.style.setProperty('--a',e.target.style.getPropertyValue('--a'));document.body.style.setProperty('--b',e.target.style.getPropertyValue('--b'))}})},{threshold:.5});secs.forEach(function(s){io.observe(s)});
+var L=performance.now(),T0=L;
+(function loop(n){var dt=Math.min(.05,(n-L)/1000);L=n;var t=(n-T0)/1000;
+ if(r){cam.position.x+=(px*1.6-cam.position.x)*.05;cam.position.y+=(1.4-py*.8-cam.position.y)*.05;cam.position.z=11;cam.lookAt(0,.4,0);
+  for(var k=0;k<G.length;k++){var g=G[k],on=k===act,tg=on?(g.userData.s||1)*.95:0;var s=g.scale.x;s+=(tg-s)*.08;g.scale.setScalar(Math.max(s,.001));g.visible=s>.02;
+   var sd=wide()?(k%2?-1:1)*2.9:0,yy=wide()?0:1.6;g.position.x+=(sd-g.position.x)*.06;g.position.y+=(yy-g.position.y)*.06;if(g.visible&&U[k])U[k](t,dt)}
+  r.render(sc,cam)}
+ requestAnimationFrame(loop)})(L);
+var pg=$('pg');addEventListener('scroll',function(){pg.style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%'});
+})();
+</script>
+</body>
+</html>
